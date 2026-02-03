@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
 });
 
 // register API
-app.post("/register", (req, res) => {
+app.post("/auth/register", (req, res) => {
   const { username, password } = req.body;
 
   // check whether user already exists or not
