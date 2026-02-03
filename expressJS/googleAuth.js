@@ -6,8 +6,8 @@ const app = express();
 app.use(express.json());
 
 const users = [
-  { username: "kirito", password: 1234 },
-  { username: "nitin", password: 4321 },
+  { username: "kirito", password: 123456 },
+  { username: "nitin", password: 654321 },
 ];
 
 app.get("/", (req, res) => {
@@ -24,18 +24,28 @@ app.post("/auth/register", async (req, res) => {
   }
 
   // validate password strength
-  const passwordStrength = password.length >= 6 && /[A-Z]/.test(password) && /[a-z]/.test(password) && /[0-9]/.test(password) ;
+  const passwordStrength =
+    password.length >= 6 &&
+    /[A-Z]/.test(password) &&
+    /[a-z]/.test(password) &&
+    /[0-9]/.test(password);
 
-  if (username && password && passwordStrength) {
-    users.push({ username, password });
-    res.json({
-      message: "new User registered successfully",
-      username: username,
-    });
+  if (username && password) {
+    if (passwordStrength) {
+      users.push({ username, password });
+      res.json({
+        message: "new User registered successfully",
+        username: username,
+      });
+    } else {
+      res.json({
+        message:
+          "Password must be of minimum length 6 and must contain at least an uppercase letter, a lowercase letter & a digit",
+      });
+    }
   } else {
     res.json({ message: "Username and password are required" });
   }
-
 });
 
 // login API
@@ -53,10 +63,6 @@ app.post("/auth/login", async (req, res) => {
   } else {
     res.json({ message: "Invalid credentials. please try again." });
   }
-
 });
-
-
-
 
 app.listen(3000, () => console.log("Auth server running on port 3000...."));
