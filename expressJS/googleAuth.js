@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
 });
 
 // register API
-app.post("/auth/register", (req, res) => {
+app.post("/auth/register", async (req, res) => {
   const { username, password } = req.body;
 
   // check whether user already exists or not
@@ -23,7 +23,10 @@ app.post("/auth/register", (req, res) => {
     res.json({ message: "User already exists. Please login." });
   }
 
-  if (username && password) {
+  // validate password strength
+  const passwordStrength = password.length >= 6 && /[A-Z]/.test(password) && /[a-z]/.test(password) && /[0-9]/.test(password) ;
+
+  if (username && password && passwordStrength) {
     users.push({ username, password });
     res.json({
       message: "new User registered successfully",
@@ -36,7 +39,7 @@ app.post("/auth/register", (req, res) => {
 });
 
 // login API
-app.post("/login", (req, res) => {
+app.post("/auth/login", async (req, res) => {
   const { username, password } = req.body;
 
   // check whether user already exists or not
