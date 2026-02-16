@@ -39,6 +39,19 @@ app.get("/students", (req, res) => {
   res.send(students);
 });
 
+
+// delete student
+app.delete("/students/:id", (req, res) => {
+  const id = req.params.id;
+  const index = students.findIndex((student) => student.id === id);
+  if (index !== -1) {
+    students.splice(index, 1);
+    res.json({ message: "Student deleted successfully", students });
+  } else {
+    res.status(404).json({ message: "Student not found" });
+  }
+});
+
 app.listen(3000, () =>
   console.log("Server is running on http://localhost:3000")
 );

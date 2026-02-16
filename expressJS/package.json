@@ -4,8 +4,10 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "collegeAttendanceSystem": "nodemon collegeAttendanceSystem.js",
-    "googleAuth": "nodemon googleAuth.js"
+    "collegeAttendanceSystem.js": "nodemon collegeAttendanceSystem.js",
+    "googleAuth.js": "nodemon googleAuth.js",
+    "routesExample.js": "nodemon routesExample.js",
+    "studentApi.js" : "nodemon studentApi.js"
   },
   "author": "",
   "license": "ISC",
