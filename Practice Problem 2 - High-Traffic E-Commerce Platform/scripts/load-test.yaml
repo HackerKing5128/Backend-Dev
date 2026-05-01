@@ -1,0 +1,24 @@
+config:
+  target: "https://peak-ecommerce-app.herokuapp.com"
+  phases:
+    - duration: 60
+      arrivalRate: 1666 # ~100k requests / min
+      name: "Warm up (100k RPM)"
+    - duration: 300
+      arrivalRate: 8333 # ~500k requests / min
+      name: "Peak Traffic (500k RPM)"
+scenarios:
+  - name: "Browse Products"
+    weight: 70
+    flow:
+      - get:
+          url: "/api/products"
+  - name: "Checkout Process"
+    weight: 30
+    flow:
+      - post:
+          url: "/api/checkout"
+          json:
+            userId: "user_{{ $randomNumber(1, 10000) }}"
+            productId: 1
+            quantity: 1
