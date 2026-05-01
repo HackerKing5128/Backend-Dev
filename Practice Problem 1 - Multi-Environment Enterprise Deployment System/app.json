@@ -1,0 +1,31 @@
+{
+  "name": "enterprise-deployment-system",
+  "description": "Multi-Environment Enterprise Deployment System",
+  "repository": "https://github.com/company/repo",
+  "logo": "https://node-js-sample.herokuapp.com/node.svg",
+  "keywords": [
+    "node",
+    "express"
+  ],
+  "environments": {
+    "test": {
+      "scripts": {
+        "test": "npm test"
+      }
+    },
+    "development": {
+      "buildpacks": [
+        {
+          "url": "heroku/nodejs"
+        }
+      ]
+    },
+    "staging": {
+      "buildpacks": [
+        {
+          "url": "heroku/nodejs"
+        }
+      ]
+    }
+  }
+}
